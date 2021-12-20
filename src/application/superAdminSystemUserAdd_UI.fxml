@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="application.UI_Call_Handler">
+   <children>
+      <Pane prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: indigo;">
+         <children>
+            <Button layoutX="250.0" layoutY="34.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="300.0" style="-fx-background-color: maroon;" text="Add a System User" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="Century Gothic Bold" size="24.0" />
+               </font>
+            </Button>
+            <Button layoutX="61.0" layoutY="175.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: white;" text="CNIC" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Century Gothic Bold" size="18.0" />
+               </font>
+            </Button>
+            <TextField fx:id="sucnic" layoutX="324.0" layoutY="175.0" prefHeight="40.0" prefWidth="300.0" />
+            <Button layoutX="61.0" layoutY="225.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: white;" text="Name" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Century Gothic Bold" size="18.0" />
+               </font>
+            </Button>
+            <TextField fx:id="suname" layoutX="324.0" layoutY="225.0" prefHeight="40.0" prefWidth="300.0" />
+            <Button layoutX="61.0" layoutY="275.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: white;" text="Age" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Century Gothic Bold" size="18.0" />
+               </font>
+            </Button>
+            <TextField fx:id="suage" layoutX="324.0" layoutY="275.0" prefHeight="40.0" prefWidth="300.0" />
+            <Button layoutX="61.0" layoutY="325.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: white;" text="Email Address" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Century Gothic Bold" size="18.0" />
+               </font>
+            </Button>
+            <TextField fx:id="suemail" layoutX="324.0" layoutY="325.0" prefHeight="40.0" prefWidth="300.0" />
+            <Button layoutX="61.0" layoutY="375.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: white;" text="Address" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Century Gothic Bold" size="18.0" />
+               </font>
+            </Button>
+            <TextField fx:id="suaddress" layoutX="324.0" layoutY="375.0" prefHeight="40.0" prefWidth="300.0" />
+            <Button layoutX="61.0" layoutY="425.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: white;" text="Phone Number" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Century Gothic Bold" size="18.0" />
+               </font>
+            </Button>
+            <TextField fx:id="suphone" layoutX="324.0" layoutY="425.0" prefHeight="40.0" prefWidth="300.0" />
+            <Button layoutX="61.0" layoutY="475.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: white;" text="Username" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Century Gothic Bold" size="18.0" />
+               </font>
+            </Button>
+            <TextField fx:id="suusername" layoutX="324.0" layoutY="475.0" prefHeight="40.0" prefWidth="300.0" />
+            <Button layoutX="61.0" layoutY="525.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: white;" text="Password" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Century Gothic Bold" size="18.0" />
+               </font>
+            </Button>
+            <TextField fx:id="supassword" layoutX="324.0" layoutY="525.0" prefHeight="40.0" prefWidth="300.0" />
+            <Button layoutX="283.0" layoutY="631.0" mnemonicParsing="false" onAction="#superAdminAddedSystemUser" prefHeight="53.0" prefWidth="234.0" style="-fx-background-color: maroon;" text="Submit" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="Century Gothic Bold" size="24.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

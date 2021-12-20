@@ -1,0 +1,382 @@
+	CREATE TABLE CUSTOMERS
+    -> (CNIC varchar(250) NOT NULL,
+    -> Name varchar(250) NOT NULL,
+    -> Age int(2) NOT NULL,
+    -> Email_Address varchar(250) NOT NULL,
+    -> Address varchar(250),
+    -> Phone_Number int(11) NOT NULL,
+    -> Username varchar(250) NOT NULL UNIQUE,
+    -> Password varchar(250) NOT NULL,
+    -> PRIMARY KEY(CNIC));
+    
+    
+    
+    
+    CREATE TABLE Station
+    -> (Station_ID int(6) NOT NULL,
+    -> Station_Name varchar(250) NOT NULL,
+    -> Location varchar(250) NOT NULL,
+    -> Station_Master_CNIC varchar(250) NOT NULL,
+    -> PRIMARY KEY(Station_ID),
+    -> CONSTRAINT FKSTATIONMASTER FOREIGN KEY(Station_Master_CNIC)
+    -> References StationMaster(CNIC));
+    
+    
+    
+    CREATE TABLE ARRIVALS
+    -> (Journey_ID varchar(250) NOT NULL,
+    -> TrainNumber int(6) NOT NULL,
+    -> TrainName varchar(250) NOT NULL,
+    -> Origin varchar(250) NOT NULL,
+    -> Destination varchar(250) NOT NULL,
+    -> Status int(1) NOT NULL,
+    -> TotalSeats int(4) NOT NULL,
+    -> Duration int(2) NOT NULL,
+    -> Fare float(6) NOT NULL,
+    -> PRIMARY KEY(Journey_ID));
+    
+    
+     CREATE TABLE PassengersListArrivals
+    -> (Journey_ID varchar(250) NOT NULL,
+    -> CNIC varchar(250) NOT NULL,
+    -> CONSTRAINT F_K_PassengersListArrivals FOREIGN KEY(Journey_ID)
+    -> References Arrivals(Journey_ID),
+    -> Constraint F_K_PassengersListCNIC FOREIGN KEY(CNIC)
+    -> References customers(CNIC),
+    -> PRIMARY KEY(Journey_ID,CNIC));
+    
+    
+     CREATE TABLE SeatsAvailabilityArrivals
+    -> (Journey_ID varchar(250) NOT NULL,
+    -> SeatNumber int(4) NOT NULL,
+    -> SeatStatus varchar(250) NOT NULL,
+    -> CONSTRAINT F_K_SeatsArrivals FOREIGN KEY(Journey_ID)
+    -> References Arrivals(Journey_ID),
+    -> PRIMARY KEY(Journey_ID,SeatNumber));
+    
+    
+    CREATE TABLE Departures(
+    -> Journey_ID varchar(250) NOT NULL,
+    -> TrainNumber int(6) NOT NULL,
+    -> TrainName varchar(250) NOT NULL,
+    -> Origin varchar(250) NOT NULL,
+    -> Destination varchar(250) NOT NULL,
+    -> Status int(1) NOT NULL,
+    -> TotalSeats int(4) NOT NULL,
+    -> Duration int(2) NOT NULL,
+    -> Fare float(6) NOT NULL,
+    -> PRIMARY KEY(Journey_ID));
+    
+    
+     CREATE TABLE SeatsAvailabilityDepartures
+    -> (Journey_ID varchar(250) NOT NULL,
+    -> SeatNumber int(4) NOT NULL,
+    -> SeatStatus varchar(250) NOT NULL,
+    -> CONSTRAINT F_K_SeatsDepartures FOREIGN KEY(Journey_ID)
+    -> References Departures(Journey_ID),
+    -> PRIMARY KEY(Journey_ID,SeatNumber));
+    
+    
+    CREATE TABLE PassengersListDepartures
+    -> (Journey_ID varchar(250) NOT NULL,
+    -> CNIC varchar(250) NOT NULL,
+    -> CONSTRAINT FK_Passengers_Departures FOREIGN KEY(Journey_ID)
+    -> References Departures(Journey_ID),
+    -> CONSTRAINT FK_PassengersDeparturesCNIC FOREIGN KEY(CNIC)
+    -> References customers(CNIC),
+    -> Primary Key(Journey_ID,CNIC));
+    
+    
+    CREATE TABLE TimeTable
+    -> (TimeTableID int(6) NOT NULL,
+    -> DateOfTimeTable DATE NOT NULL,
+    -> PRIMARY KEY(TimeTableID));
+    
+    
+    CREATE TABLE TimeTableArrivals
+    -> (
+    -> TimeTableID int(6) NOT NULL,
+    -> Journey_ID varchar(250) NOT NULL,
+    -> CONSTRAINT F_K_TTID FOREIGN KEY(TimeTableID)
+    -> References TimeTable(TimeTableID),
+    -> CONSTRAINT F_K_TT_JOURNEY FOREIGN KEY(Journey_ID)
+    -> References Arrivals(Journey_ID),
+    -> PRIMARY KEY(TimeTableID,Journey_ID));
+    
+    
+    CREATE TABLE TimeTableDepartures
+    -> (TimeTableID int(6) NOT NULL,
+    -> Journey_ID varchar(250) NOT NULL,
+    -> Constraint F_K_Dep_TTID FOREIGN KEY(TimeTableID)
+    -> References TimeTable(TimeTableID),
+    -> Constraint F_K_Dept_Journey FOREIGN KEY(Journey_ID)
+    -> References Departures(Journey_ID),
+    -> Primary Key(TimeTableID,Journey_ID));
+    
+    
+    CREATE TABLE StationMaster
+    -> (CNIC varchar(250) NOT NULL,
+    -> Name varchar(250) NOT NULL,
+    -> Age int(2) NOT NULL,
+    -> Email_Address varchar(250) NOT NULL,
+    -> Address varchar(250) NOT NULL,
+    -> PhoneNumber int(11) NOT NULL,
+    -> Username varchar(250) NOT NULL UNIQUE,
+    -> Password varchar(250) NOT NULL,
+    -> PRIMARY KEY(CNIC));
+    
+    
+    CREATE TABLE StationMasterTimeTable
+    -> (CNIC varchar(250) NOT NULL,
+    -> TimeTableID int(6) NOT NULL,
+    -> Constraint FCNIC FOREIGN KEY(CNIC)
+    -> References StationMaster(CNIC),
+    -> Constraint FTIME FOREIGN KEY(TimeTableID)
+    -> References TimeTable(TimeTableID),
+    -> PRIMARY KEY(CNIC,TimeTableID));
+    
+    
+     CREATE TABLE SystemUser
+    -> (
+    -> CNIC varchar(250) NOT NULL,
+    -> Name varchar(250) NOT NULL,
+    -> Age int(2) NOT NULL,
+    -> Email_Address varchar(250) NOT NULL,
+    -> Address varchar(250) NOT NULL,
+    -> PhoneNumber int(11) NOT NULL,
+    -> Username varchar(250) NOT NULL UNIQUE,
+    -> Password varchar(250) NOT NULL,
+    -> PRIMARY KEY(CNIC));
+    
+    
+    CREATE TABLE SuperAdmin(
+    -> CNIC varchar(250) NOT NULL,
+    -> Name varchar(250) NOT NULL,
+    -> Age int(2) NOT NULL,
+    -> Email_Address varchar(250) NOT NULL,
+    -> Address varchar(250) NOT NULL,
+    -> PhoneNumber int(11) NOT NULL,
+    -> Username varchar(250) NOT NULL UNIQUE,
+    -> Password varchar(250) NOT NULL,
+    -> PRIMARY KEY(CNIC));
+    
+    
+    
+    
+    show tables;
++-----------------------------+
+| Tables_in_srms              |
++-----------------------------+
+| arrivals                    |
+| customers                   |
+| departures                  |
+| passengerslistarrivals      |
+| passengerslistdepartures    |
+| seatsavailabilityarrivals   |
+| seatsavailabilitydepartures |
+| station                     |
+| stationmaster               |
+| stationmastertimetable      |
+| superadmin                  |
+| systemuser                  |
+| timetable                   |
+| timetablearrivals           |
+| timetabledepartures         |
++-----------------------------+
+
+
+
+
+
+desc superadmin;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| CNIC          | varchar(250) | NO   | PRI | NULL    |       |
+| Name          | varchar(250) | NO   |     | NULL    |       |
+| Age           | int          | NO   |     | NULL    |       |
+| Email_Address | varchar(250) | NO   |     | NULL    |       |
+| Address       | varchar(250) | NO   |     | NULL    |       |
+| PhoneNumber   | int          | NO   |     | NULL    |       |
+| Username      | varchar(250) | NO   | UNI | NULL    |       |
+| Password      | varchar(250) | NO   |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+
+
+
+
+
+desc systemuser;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| CNIC          | varchar(250) | NO   | PRI | NULL    |       |
+| Name          | varchar(250) | NO   |     | NULL    |       |
+| Age           | int          | NO   |     | NULL    |       |
+| Email_Address | varchar(250) | NO   |     | NULL    |       |
+| Address       | varchar(250) | NO   |     | NULL    |       |
+| PhoneNumber   | int          | NO   |     | NULL    |       |
+| Username      | varchar(250) | NO   | UNI | NULL    |       |
+| Password      | varchar(250) | NO   |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+
+
+
+
+desc stationMaster;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| CNIC          | varchar(250) | NO   | PRI | NULL    |       |
+| Name          | varchar(250) | NO   |     | NULL    |       |
+| Age           | int          | NO   |     | NULL    |       |
+| Email_Address | varchar(250) | NO   |     | NULL    |       |
+| Address       | varchar(250) | NO   |     | NULL    |       |
+| PhoneNumber   | int          | NO   |     | NULL    |       |
+| Username      | varchar(250) | NO   | UNI | NULL    |       |
+| Password      | varchar(250) | NO   |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+
+
+
+
+desc customers;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| CNIC          | varchar(250) | NO   | PRI | NULL    |       |
+| Name          | varchar(250) | NO   |     | NULL    |       |
+| Age           | int          | NO   |     | NULL    |       |
+| Email_Address | varchar(250) | NO   |     | NULL    |       |
+| Address       | varchar(250) | YES  |     | NULL    |       |
+| Phone_Number  | int          | NO   |     | NULL    |       |
+| Username      | varchar(250) | NO   | UNI | NULL    |       |
+| Password      | varchar(250) | NO   |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+
+
+
+
+
+desc arrivals;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| Journey_ID  | varchar(250) | NO   | PRI | NULL    |       |
+| TrainNumber | int          | NO   |     | NULL    |       |
+| TrainName   | varchar(250) | NO   |     | NULL    |       |
+| Origin      | varchar(250) | NO   |     | NULL    |       |
+| Destination | varchar(250) | NO   |     | NULL    |       |
+| Status      | int          | NO   |     | NULL    |       |
+| TotalSeats  | int          | NO   |     | NULL    |       |
+| Duration    | int          | NO   |     | NULL    |       |
+| Fare        | float        | NO   |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+
+
+ desc departures;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| Journey_ID  | varchar(250) | NO   | PRI | NULL    |       |
+| TrainNumber | int          | NO   |     | NULL    |       |
+| TrainName   | varchar(250) | NO   |     | NULL    |       |
+| Origin      | varchar(250) | NO   |     | NULL    |       |
+| Destination | varchar(250) | NO   |     | NULL    |       |
+| Status      | int          | NO   |     | NULL    |       |
+| TotalSeats  | int          | NO   |     | NULL    |       |
+| Duration    | int          | NO   |     | NULL    |       |
+| Fare        | float        | NO   |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+
+
+
+
+desc station;
++---------------------+--------------+------+-----+---------+-------+
+| Field               | Type         | Null | Key | Default | Extra |
++---------------------+--------------+------+-----+---------+-------+
+| Station_ID          | int          | NO   | PRI | NULL    |       |
+| Station_Name        | varchar(250) | NO   |     | NULL    |       |
+| Location            | varchar(250) | NO   |     | NULL    |       |
+| Station_Master_CNIC | varchar(250) | NO   | MUL | NULL    |       |
++---------------------+--------------+------+-----+---------+-------+
+
+
+ 
+
+ desc passengerslistarrivals;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| Journey_ID | varchar(250) | NO   | PRI | NULL    |       |
+| CNIC       | varchar(250) | NO   | PRI | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+
+
+desc passengerslistdepartures;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| Journey_ID | varchar(250) | NO   | PRI | NULL    |       |
+| CNIC       | varchar(250) | NO   | PRI | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+
+
+desc seatsavailabilityarrivals;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| Journey_ID | varchar(250) | NO   | PRI | NULL    |       |
+| SeatNumber | int          | NO   | PRI | NULL    |       |
+| SeatStatus | varchar(250) | NO   |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+
+
+
+ desc seatsavailabilitydepartures;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| Journey_ID | varchar(250) | NO   | PRI | NULL    |       |
+| SeatNumber | int          | NO   | PRI | NULL    |       |
+| SeatStatus | varchar(250) | NO   |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+
+
+desc stationMasterTimeTable;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| CNIC        | varchar(250) | NO   | PRI | NULL    |       |
+| TimeTableID | int          | NO   | PRI | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+
+
+desc timetable;
++-----------------+------+------+-----+---------+-------+
+| Field           | Type | Null | Key | Default | Extra |
++-----------------+------+------+-----+---------+-------+
+| TimeTableID     | int  | NO   | PRI | NULL    |       |
+| DateOfTimeTable | date | NO   |     | NULL    |       |
++-----------------+------+------+-----+---------+-------+
+
+
+ desc timetablearrivals;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| TimeTableID | int          | NO   | PRI | NULL    |       |
+| Journey_ID  | varchar(250) | NO   | PRI | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+
+
+ desc timetabledepartures;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| TimeTableID | int          | NO   | PRI | NULL    |       |
+| Journey_ID  | varchar(250) | NO   | PRI | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+
+
